@@ -4,24 +4,17 @@ SIZE = WIDTH, HEIGHT = 800, 600
 BORDER = 10
 
 
-def draw(screen: pygame.Surface):
-    screen.fill((0, 0, 0))
-    font = pygame.font.Font(None, 50)
-    text = font.render("Hello World", True, (255, 255, 100))
-    text_x = WIDTH // 2 - text.get_width() // 2
-    text_y = HEIGHT // 2 - text.get_height() // 2
-    screen.blit(text, (text_x, text_y))
-    pygame.draw.rect(
-        surface=screen,
-        color=(0, 255, 0),
-        rect=(
-            text_x - BORDER,
-            text_y - BORDER,
-            text.get_width() + BORDER * 2,
-            text.get_height() + BORDER * 2
-         ),
-        width=1,
-    )
+def draw_square(screen):
+    color = pygame.Color(50, 150, 50)
+    # рисуем "тень"
+    pygame.draw.rect(screen, color,
+                     (20, 20, 100, 100), 0)
+    hsv = color.hsva
+    # увеличиваем параметр Value, который влияет на яркость
+    color.hsva = (hsv[0], hsv[1], hsv[2] + 30, hsv[3])
+    # рисуем сам объект
+    pygame.draw.rect(screen, color, (10, 10, 100, 100), 0)
+    pygame.draw.rect(screen, (255, 225, 0), (10, 10, 100, 100), 0)
 
 
 if __name__ == '__main__':
@@ -30,7 +23,6 @@ if __name__ == '__main__':
     pygame.display.flip()
     while pygame.event.wait().type != pygame.QUIT:
         pygame.display.flip()
-        draw(screen)
         draw_square(screen)
     pygame.quit()
 
