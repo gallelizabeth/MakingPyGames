@@ -1,7 +1,18 @@
+from random import randint
+
 import pygame
 
 SIZE = WIDTH, HEIGHT = 800, 600
 RADIUS = 20
+BLACK = 0, 0, 0
+WHITE = 255, 255, 255
+
+
+def draw(surface: pygame.Surface):
+    surface.fill(BLACK)
+    for i in range(10_000):
+        surface.fill(WHITE, (randint(0, WIDTH), randint(0, HEIGHT), 1, 1))
+
 
 if __name__ == '__main__':
     pygame.init()
@@ -15,9 +26,7 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 running = False
         # изменения, не зависящие от событий - действий пользователя или таймера
-        screen.fill((0, 0, 0))
-        pygame.draw.circle(screen, 'red', (x_pos, HEIGHT // 2), RADIUS)
-        x_pos += 1
+        draw(screen)
         pygame.display.flip()
 
     pygame.quit()
